@@ -1,4 +1,4 @@
-package rest;
+package main.rest;
 
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,7 +11,7 @@ public class MyCustomErrorController implements ErrorController {
 
     @GetMapping(value=PATH)
     public String error() {
-        return "Error heaven";
+        return "invalid URL";
     }
 
     @Override
