@@ -1,13 +1,13 @@
-package setupdata;
+package main.setupdata;
 
 import java.util.ArrayList;
 import java.util.List;
-import vo.User;
+import main.vo.User;
 
 public interface SetupData {
 
 
-  static List<User> setupUsers() {
+  default List<User> setupUserList() {
     List<User> users = new ArrayList<>();
 
     User user = new User();
@@ -17,7 +17,7 @@ public interface SetupData {
 
     user = new User();
     user.setName("n2");
-    user.setId(2);
+    user.setId(1);
     users.add(user);
 
     user = new User();

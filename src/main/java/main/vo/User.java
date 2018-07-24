@@ -1,4 +1,4 @@
-package vo;
+package main.vo;
 
 public class User {
 
