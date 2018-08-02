@@ -14,7 +14,10 @@ public class MainTest implements SetupData{
   public static void main(String args[]) {
     MainTest mainTest = new MainTest();
     List<User> users = mainTest.userList;
-    Integer secondId = 2;
+
+    /*users.stream().map(User::getId).findFirst().ifPresent(System.out::println);
+    if(true) return;*/
+    Integer secondId = 1;
     //int user = userList.stream().filter(i -> secondId.equals(i.getId()).count());
     users = users.stream()
         .filter(user -> secondId.equals(user.getId()))
@@ -22,7 +25,7 @@ public class MainTest implements SetupData{
 
     Optional<User> filteredUser = users.stream()
         .filter(user -> secondId.equals(user.getId()))
-        .findAny();
+        .findFirst();
     if (!CollectionUtils.isEmpty(users)) {
       System.out.println(users.get(0).getName());
     }
@@ -30,8 +33,11 @@ public class MainTest implements SetupData{
       System.out.println(filteredUser.get().getName());
     }
 
-    System.out.println(users.stream().count());
+    if (filteredUser.isPresent()) {
+      System.out.println(filteredUser.get().getId());
+    }
 
+    System.out.println(users.stream().count());
 
     users = mainTest.userList;
     Comparator<User> comparator = Comparator.comparing(User::getId); //Comparator<User> comparator = Comparator.comparing(User::getId);
