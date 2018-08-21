@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.freemarker.FreeMarkerConfigurationFactoryBean;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
@@ -125,5 +126,16 @@ public class AppConfig extends HandlerInterceptorAdapter {
     return templateResolver;
   }*/
   /**************************end of thymeleaf template resolver******************************/
+
+
+  /**************************start of freemarker template resolver******************************/
+  @Primary
+  @Bean
+  public FreeMarkerConfigurationFactoryBean getFreeMarkerConfiguration() {
+    FreeMarkerConfigurationFactoryBean bean = new FreeMarkerConfigurationFactoryBean();
+    bean.setTemplateLoaderPath("classpath:/templates");
+    return bean;
+  }
+  /**************************end of freemarker template resolver******************************/
 
 }
