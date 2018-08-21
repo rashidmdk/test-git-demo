@@ -1,5 +1,10 @@
 package main.rest;
 
+import freemarker.template.Configuration;
+import freemarker.template.Template;
+import freemarker.template.TemplateException;
+import freemarker.template.TemplateHashModel;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -13,6 +18,7 @@ import org.apache.velocity.app.VelocityEngine;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 import org.springframework.ui.velocity.VelocityEngineUtils;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,6 +40,9 @@ public class VrooziRestController implements SetupData {
   @Autowired
   @Qualifier("htmlTemplateEngine")
   private TemplateEngine htmlTemplateEngine;
+
+  @Autowired
+  private Configuration freemarkerConfig;
 
   @RequestMapping(value = "/helloworld", method = RequestMethod.GET)
   public String helloWorld (@RequestHeader(value="Accept-Language") String locale) {
@@ -71,5 +80,19 @@ public class VrooziRestController implements SetupData {
     ctx.setVariable("mesasge", message);
     return this.htmlTemplateEngine.process("html/mailTemplate", ctx);
   }
+
+  @RequestMapping(value = "/freeMarkerEmail", method = RequestMethod.GET)
+  @ResponseBody
+  public String freeMarkerEmail() throws IOException, TemplateException {
+    Template t = freemarkerConfig.getTemplate("email-template.ftl");
+    Map<String, Object> dataModel = new HashMap<>();
+    dataModel.put("mesasge", "this is my custom message");
+    ResourceBundle bundle = ResourceBundle.getBundle("emailmessages", new Locale("ja"));
+    dataModel.put("bundle",bundle);
+    return FreeMarkerTemplateUtils.processTemplateIntoString(t, dataModel);
+  }
+
+
+
 
 }
