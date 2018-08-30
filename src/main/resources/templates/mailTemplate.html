@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head></head>
+<body>
+<p th:text="#{resource.msg}"></p>
+<span th:text="${mesasge}"></span>
+<div th:switch="${condition}">
+  <p th:case="1">inside if condition</p>
+  <p th:case="2">inside else if condition</p>
+  <p th:case="*">inside else condition</p><!--default-->
+</div>
+
+<p th:each="listItem,iterator : ${listItems}" th:text="${iterator.index} + '-' + ${listItem}"></p>
+
+<div th:replace="includes/content :: content">&copy; Default Usecase</div>
+
+
+</body>
+</html>
