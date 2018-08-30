@@ -1,32 +1,29 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-  <title>Sending Email with Freemarker HTML Template Example</title>
+<!DOCTYPE html>
 
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
-  <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
-
-  <!-- use the font -->
-  <style>
-    body {
-      font-family: 'Roboto', sans-serif;
-      font-size: 48px;
-    }
-  </style>
-</head>
-<body style="margin: 0; padding: 0;">
-
-<table align="center" border="0" cellpadding="0" cellspacing="0" width="600" style="border-collapse: collapse;">
-
+<head></head>
+<body>
+<table>
   <tr>
-    <td bgcolor="#777777" style="padding: 30px 30px 30px 30px;">
+    <td>mesasge
       <p>${mesasge}</p>
-      <p>${bundle.testmsg}</p>
+      <p>${bundle.resource_msg}</p>
+      <p>${bundle('msg_parameterized', '${prno}')}</p>
+
+      <#if condition==1>
+         <p>inside if condition</p>
+      <#elseif condition==2>
+        <p>inside else if condition</p>
+      <#else>
+        <p>inside else condition</p>
+      </#if>
     </td>
   </tr>
 </table>
 
+<#list listItems as listItem>
+  ${listItem_index} - ${listItem}
+</#list>
+
+<#include "includes/content.ftl">
 </body>
 </html>

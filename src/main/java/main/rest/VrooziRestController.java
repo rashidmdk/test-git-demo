@@ -5,6 +5,7 @@ import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateHashModel;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -78,7 +79,9 @@ public class VrooziRestController implements SetupData {
   private String build(String message) {
     final Context ctx = new Context(new Locale("ja"));
     ctx.setVariable("mesasge", message);
-    return this.htmlTemplateEngine.process("html/mailTemplate", ctx);
+    ctx.setVariable("condition", 2);
+    ctx.setVariable("listItems", Arrays.asList(new String[]{"one", "two", "three"}));
+    return this.htmlTemplateEngine.process("mailTemplate", ctx);
   }
 
   @RequestMapping(value = "/freeMarkerEmail", method = RequestMethod.GET)
@@ -87,6 +90,9 @@ public class VrooziRestController implements SetupData {
     Template t = freemarkerConfig.getTemplate("email-template.ftl");
     Map<String, Object> dataModel = new HashMap<>();
     dataModel.put("mesasge", "this is my custom message");
+    dataModel.put("condition", 3);
+    dataModel.put("prno", "12345");
+    dataModel.put("listItems", Arrays.asList(new String[]{"one", "two", "three"}) );
     ResourceBundle bundle = ResourceBundle.getBundle("emailmessages", new Locale("ja"));
     dataModel.put("bundle",bundle);
     return FreeMarkerTemplateUtils.processTemplateIntoString(t, dataModel);

@@ -1,0 +1,1 @@
+<div>&copy; 2018 All rights reserved. Vroozi, Inc.</div>
